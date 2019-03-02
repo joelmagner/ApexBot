@@ -1,10 +1,11 @@
 import * as discord from "discord.js";
+import Metadata from "./helpers/metadata.helper";
 export default class Bot {
     public reply(msg: any, number:number, deleteTime?:number) {
         let message = "";
         switch (number) {
             case -1: 
-                message = "Något gick fel. Var snäll och försök senare.";
+                message = "Something went wrong. Please try again...";
             case 0:
                 message = "Sorry, not sure what that command is.";
                 break;
@@ -18,10 +19,11 @@ export default class Bot {
                 message = "You've already voted.";
                 break;
             case 4:
-                message = "Du måste vara i en röstkanal.";
+                message = "You have to be in a voicechannel.";
                 break;
             case 5:
-                message = `\`\`\`markdown\n\t\t🤖Joels Bot v0.2 TS🤖\n=================================\nPrefix: § (knappen till vänster om 1)\n=================================
+                const version = new Metadata().getAppVersion();
+                message = `\`\`\`markdown\n\t\t🤖Apex Bot v${version} 🤖\n=================================\nPrefix: § (knappen till vänster om 1)\n=================================
                 \n[📻\t§play / §spela](§play never gonna give you up / §play https://www.youtube.com/watch?v=dQw4w9WgXcQ)\n[❌\t§skip / §skippa](skippa en låt)\n[📖\t§quote / §citat](lär dig skånska)\n[🏃‍\t§leave / §stick](botten lämnar.. (BETA) )\n[🗑️\t§clear / §rensa](§clear <antal>)\n[🗑️\t\t§deleteBot](rensar ALLA botmeddelande)\n[📇️\t§queue\t\t](§queue)\n\nAllmänt: Skapa en kanal som heter [#botspam]. Botten kommer lägga alla botmeddelanden där!\n=================================\nDetta meddelande försvinner om 20sekunder.
                 \`\`\``;
                 break;

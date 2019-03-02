@@ -1,8 +1,5 @@
 import * as discord from "discord.js";
-import * as request from "request";
 import * as fs from "fs";
-import Commands from "./commands.component";
-import Bot from "./bot.component";
 import HelpCommand from "./commands/help.command";
 import PlayCommand from "./commands/play.command";
 import SkipCommand from "./commands/skip.command";
@@ -19,10 +16,7 @@ import Settings from './models/settings.model';
 // // https://discordapp.com/oauth2/authorize?client_id=550368724851490816&scope=bot&permissions=8
 export default class ApexBot {
 
-    private discord: any = discord;
     private client: any = new discord.Client();
-    private request: any = request;
-    private fs: any = fs;
     private guilds: any = {};
     private guild!: any | discord.Guild;
     constructor() {
@@ -62,9 +56,9 @@ export default class ApexBot {
                 }
             }
 
-            let switcher = mess.split(' ')[0];
+            let input = mess.split(' ')[0];
             let prefix = settings.prefix;
-            switch (switcher) {
+            switch (input) {
                 case prefix + "play":
                 case prefix + "spela":
                     const music = new PlayCommand();
@@ -97,7 +91,7 @@ export default class ApexBot {
                     new QueueCommand(this.guild, msg);
                     break;
                 default:
-                    console.log("INVALID INPUT!", switcher);
+                    console.log("Invalid input!", input);
                     break;
             }
         });
