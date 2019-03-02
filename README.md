@@ -1,34 +1,42 @@
-# Discord-Bot
-Discord bot 
+# Apex Bot
+*A non intrusive Discord bot that cleans up after itself and others*
 
 # Prefix: §
 
 # Commands 
-- **§play** | plays audio from Youtube via search query or url.
-- **§skip** | skip to next song in queue (becomes vote if more than 2 people in channel)
-- **§quotes** | random quotes
-- **§clear** | usage: §clear <number> | removes **x** amount of messages in channel. 
-- **§clearbot** | usage: §clearbot <number> | **only** removes messages from `BOT`-users.
+- **§play** | Plays audio from Youtube via search query or url.
+- **§skip** | Skip to next song in queue (becomes vote if more than 2 people in channel)
+- **§queue** | Checks current songqueue.
+- **§quotes** | Random quotes
+- **§clear** | Usage: §clear <number> | Removes **x** amount of messages in channel. 
+- **§clearbot** | Usage: §clearbot <number> | **Only** removes messages from `BOT`-users.
+- **§help** | Displays avaliable commands.
+- **§leave** | Bot leaves the current channel | Requires `BOT`-role. 
 # Features
   <h3>Organising</h3>
-- Moves all `BOT`-related messages to a text-channel called `botspam`
-- Messages targeting `BOT`-commands are removed shortly after.
+
+* Moves all `BOT`-related messages to a text-channel called `botspam`.
+* Usermessages triggering `BOT`-commands are removed shortly after.
   <h3>Cleanup</h3>
-- `BOT`-messages will be posted in channel `botspam` instead.
-- Certain messages will be kept in current channel, but removed shortly after.
+* `BOT`-messages will be posted in channel `botspam` instead.
+* Certain BOT-responses will be kept in current channel, but will be removed shortly after.
   <h3>Moderation</h3>
-- users needs role `BOT` to perform certain commands like `§clear` & `§botclear`.
-- users who have the role `BOT` will not be @mentioned in `BOT`-response message.
-
+* Users needs role `BOT` to perform certain commands like `§clear` & `§botclear`.
+* Users who have the role `BOT` will not be @mentioned in `BOT`-response message.
+* You must be in a voicechannel to fetch the bot. 
 # Dependencies
+<h3>NPM</h3>
 
-* discord.js
-* ytdl-core
-* request
-* fs
-* get-youtube-id
-* youtube-info
+* Discord.js
+* Ytdl-core
+* Request
+* Fs
+* Get-youtube-id
+* Youtube-info
+<h3>API</h3>
 
-# Run: 
+* Youtube
+* Discord
+# Run
 
-- node app.js
+> `node app.js`
