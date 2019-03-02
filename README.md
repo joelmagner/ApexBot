@@ -8,8 +8,8 @@
 - **§skip** | Skip to next song in queue (becomes vote if more than 2 people in channel)
 - **§queue** | Checks current songqueue.
 - **§quotes** | Random quotes
-- **§clear** | Usage: §clear `amount` | Removes **x** amount of messages in channel.
-- **§clearbot** | Usage: §clearbot `amount` | **Only** removes messages from `BOT`-users.
+- **§clear** | Usage: ***§clear `amount`*** | Removes **x** amount of messages in channel.
+- **§clearbot** | Usage: ***§clearbot `amount`*** | **Only** removes messages from `BOT`-users.
 - **§help** | Displays avaliable commands.
 - **§leave** | Bot leaves the current channel | Requires `BOT`-role. 
 # Features
