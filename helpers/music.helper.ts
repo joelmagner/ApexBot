@@ -3,15 +3,15 @@ import * as request from 'request';
 import Settings from '../models/settings.model';
 export default class MusicHelper{
 
-    private getYouTubeID: any = require("get-youtube-id");
+    private readonly getYouTubeID: any = require("get-youtube-id");
     
     isYoutube(url: string) {
         return url.toLowerCase().indexOf("youtube.com") > -1;
     }
 
     searchVideo(query: any, callback: any, settings: Settings) {
-        request(settings.yt_uri + encodeURIComponent(query) + "&key=" + settings.yt_api_key, function (error: any, response: any, body: any) {
-            var json = JSON.parse(body);
+        request(settings.yt_uri + encodeURIComponent(query) + "&key=" + settings.yt_api_key, (error: any, response: any, body: any) => {
+            const json = JSON.parse(body);
             if (!json.items[0]) {
                 callback("3_-a9nVZYjk");
             }

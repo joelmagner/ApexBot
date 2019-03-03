@@ -6,7 +6,7 @@ export default class QuoteCommand {
     }
 
     randomQuote() {
-        const min = 0, max = 10;
+        const min = 0, max = 9;
         let random = Math.floor(Math.random() * (max - min + 1)) + min;
         switch (random) {
             case 1:

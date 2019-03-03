@@ -1,4 +1,4 @@
-import * as discord from "discord.js";
+
 import * as fs from "fs";
 import HelpCommand from "./commands/help.command";
 import PlayCommand from "./commands/play.command";
@@ -9,28 +9,21 @@ import CleanupCommand from "./commands/cleanup.command";
 import QuoteCommand from "./commands/quote.command";
 import QueueCommand from "./commands/queue.command";
 import Settings from './models/settings.model';
+import * as discord from "discord.js";
 
-
-
-// // länk för att ansluta till server
-// // https://discordapp.com/oauth2/authorize?client_id=550368724851490816&scope=bot&permissions=8
+// https://discordapp.com/oauth2/authorize?client_id=550368724851490816&scope=bot&permissions=8
 export default class ApexBot {
 
     private client: any = new discord.Client();
     private guilds: any = {};
     private guild!: any | discord.Guild;
-    constructor() {
-        this.startBot();
-    }
+    constructor() { this.startBot(); }
 
-    private initSettings(filename: string, encoding: string): Settings {
-        return JSON.parse(fs.readFileSync(filename, encoding));
-    }
+    private initSettings(filename: string, encoding: string): Settings { return JSON.parse(fs.readFileSync(filename, encoding)); }
 
     private login(): Settings {
         var settings = this.initSettings("./settings.json", "UTF-8");
         this.client.login(settings.discord_token);
-        console.log("Bot is connected");
         return settings;
     }
 
@@ -40,19 +33,19 @@ export default class ApexBot {
             const member: discord.GuildMember = await msg.member;
             const mess: string = await msg.content.toLowerCase();
             const args = await msg.content.split(' ').slice(1).join(" ");
-            const cont = await msg.content.slice(settings.prefix.length).split(" "); // This variable slices off the prefix, then puts the rest in an array based off the spaces
-            const arg = cont.slice(1);
+            const arg = await msg.content.slice(settings.prefix.length).split(" ").slice(1); // useful to get value from eg. §clear <amount>
 
 
             if (!this.guilds[msg.guild.id]) {
                 this.guild = this.guilds[msg.guild.id] = {
-                    queue: [], // holds the ID values of the youtube-videos.
+                    queue: [],
                     queueNames: [],
                     isPlaying: false,
                     dispatcher: null,
                     voiceChannel: null,
                     skipRequest: 0,
                     skipList: []
+                    // TODO: add customization to: botchannel && prefix / guild && custom role.
                 }
             }
 

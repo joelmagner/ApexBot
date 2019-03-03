@@ -33,7 +33,7 @@ export default class PlayCommand {
             this.fetchVideoInfo(url).then((videoInfo: any) => {
                 guild.queueNames.push(videoInfo.title);
                 new MoveMessage(client, msg, "🎵 **" + videoInfo.title + "**");
-            }).catch((error: any) => { console.log("Error: rad 88", error) });
+            }).catch((error: any) => { console.log("Error: rad 36", error) });
         }, settings);
         bot.delete(msg);
     }
@@ -44,7 +44,7 @@ export default class PlayCommand {
                 this.fetchVideoInfo(url).then((videoInfo: any) => {
                     guild.queueNames.push(videoInfo.title);
                     new MoveMessage(client, msg, " lägger till **" + videoInfo.title + "** i kön");
-                }).catch((error: any) => { console.log("Error: rad 80", error) });
+                }).catch((error: any) => { console.log("Error: rad 47", error) });
             }, settings);
             bot.delete(msg);
     }
