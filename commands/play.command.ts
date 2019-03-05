@@ -8,6 +8,8 @@ export default class PlayCommand {
     private fetchVideoInfo: any = require("youtube-info");
     private ytdl: any = require("ytdl-core");
 
+     // https://www.npmjs.com/package/ytdl-getinfo 
+
     musicConfig(member: any, guild: any, args: any, client: any, msg: any, settings: Settings) {
         const bot = new Bot();
         const helper = new MusicHelper();
