@@ -9,7 +9,8 @@
             "request": "launch",
             "name": "Launch Program",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}\\app.ts",
+            "program": "${workspaceFolder}/app.ts", // mac
+            //"program": "${workspaceFolder}\\app.ts", // windows
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
