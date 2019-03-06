@@ -21,21 +21,25 @@ export default class Bot {
             case 4:
                 message = "You have to be in a voicechannel.";
                 break;
-            case 5:
-                const meta = new Metadata();
-                message = `\`\`\`markdown\n\t\t🤖Apex Bot v${meta.getAppVersion()} by ${meta.getAuthor()} 🤖\n=================================\nPrefix: § (knappen till vänster om 1)\n=================================
-                \n[📻\t§play / §spela](§play never gonna give you up / §play https://www.youtube.com/watch?v=dQw4w9WgXcQ)\n[❌\t§skip / §skippa](skippa en låt)\n[📖\t§quote / §citat](lär dig skånska)\n[🏃‍\t§leave / §stick](botten lämnar.. (BETA) )\n[🗑️\t§clear / §rensa](§clear <antal>)\n[🗑️\t\t§deleteBot](rensar ALLA botmeddelande)\n[📇️\t§queue\t\t](§queue)\n\nAllmänt: Skapa en kanal som heter [#botspam]. Botten kommer lägga alla botmeddelanden där!\n=================================\nDetta meddelande försvinner om 20sekunder.
-                \`\`\``;
+            case 5:                         
                 break;
             case 6:
                 message = "Vi höres, haa dee!";
             default:
                 break;
         }
-        return deleteTime ? msg.reply(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error Replying: ", ex)) : msg.reply(message).catch((err:any) => console.log("err reply:", err));
+        return deleteTime ? msg.reply(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error reply(): ", ex)) : msg.reply(message).catch((err:any) => console.log("err reply:", err));
+    }
+    
+    public replyTo(msg: discord.Message, message: string, deleteTime?: number){
+        return deleteTime ? msg.reply(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error replyTo(): ", ex)) : msg.reply(message).catch((err:any) => console.log("err reply:", err));
+    }
+
+    public message(msg: discord.Message, message: string, deleteTime?: number){
+        return deleteTime ? msg.channel.send(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error message(): ", ex)) : msg.reply(message).catch((err:any) => console.log("err reply:", err));
     }
 
     public delete(msg: discord.Message, number?: number) {
-        return number ? msg.delete(number).catch(ex => console.log("Error Deleting: ", ex)) : msg.delete();
+        return number ? msg.delete(number).catch(ex => console.log("Error delete(): ", ex)) : msg.delete();
     }
 }

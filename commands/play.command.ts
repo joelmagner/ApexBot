@@ -14,19 +14,19 @@ export default class PlayCommand {
         if (msg.member.voiceChannel || guild.voiceChannel != null) {
             guild.voiceChannel = member.voiceChannel;
             if (guild.queue.length > 0 || guild.isPlaying) {
-                this.notPlaying(guild, helper, args, msg, settings, client, bot);
+                this.queueSong(guild, helper, args, msg, settings, client, bot);
             } else {
                 guild.isPlaying = true;
-                this.isPlaying(helper, args, guild, msg, settings, client, bot);
+                this.playSong(helper, args, guild, msg, settings, client, bot);
             }
         } else {
             bot.reply(msg, 4, 5000);
         }
     }
 
-    isPlaying(helper: MusicHelper, args: any, guild: any, msg: any, settings: Settings, client: any, bot: Bot) {
+    playSong(helper: MusicHelper, args: any, guild: any, msg: any, settings: Settings, client: any, bot: Bot) {
         helper.getID(args, (url: string) => {
-            this.playMusic(url, msg, guild);
+            this.musicPlayer(url, msg, guild);
             helper.addToQueue(url, guild);
             this.getInfo(url).then((info: any) => {
                 const title = info.items[0].title;
@@ -36,18 +36,18 @@ export default class PlayCommand {
         }, settings);
     }
 
-    notPlaying(guild: any, helper: MusicHelper, args: any, msg: any, settings: Settings, client: any, bot: Bot) {
+    queueSong(guild: any, helper: MusicHelper, args: any, msg: any, settings: Settings, client: any, bot: Bot) {
         helper.getID(args, (url: string) => {
             helper.addToQueue(url, guild);
             this.getInfo(url).then((info: any) => {
                 const title = info.items[0].title;
                 guild.queueNames.push(title);
-                new MoveMessage(client, msg, "lägger till **" + title + "** i kön", guild);
+                new MoveMessage(client, msg, "Adding **" + title + "** to the queue", guild);
             }).catch((error: any) => console.log("Error notPlaying-> getInfo(): ", error));
         }, settings);
     }
 
-    playMusic(url: any, message: any, guild: any) {
+    musicPlayer(url: any, message: any, guild: any) {
         const settings = new Settings();
         guild.voiceChannel = message.member.voiceChannel;
         guild.voiceChannel.join().then((connect: any) => {
@@ -70,10 +70,10 @@ export default class PlayCommand {
                     guild.isPlaying = false;
                 } else {
                     setTimeout(() => {
-                        this.playMusic(guild.queue[0], message, guild);
+                        this.musicPlayer(guild.queue[0], message, guild);
                     }, 600);
                 }
             });
-        }).catch((error: any) => console.log(`Err playMusic() => url: ${url}\nerror: ${error}`));
+        }).catch((error: any) => console.log(`Err musicPlayer() => url: ${url}\nerror: ${error}`));
     }
 }
