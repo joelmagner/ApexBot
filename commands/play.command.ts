@@ -3,12 +3,10 @@ import Bot from '../bot.component';
 import MusicHelper from '../helpers/music.helper';
 import MoveMessage from '../helpers/move.helper';
 import Settings from '../models/settings.model';
-
+import { getInfo } from "ytdl-getinfo";
 export default class PlayCommand {
-    private fetchVideoInfo: any = require("youtube-info");
     private ytdl: any = require("ytdl-core");
-
-     // https://www.npmjs.com/package/ytdl-getinfo 
+    private getInfo: any = getInfo;
 
     musicConfig(member: any, guild: any, args: any, client: any, msg: any, settings: Settings) {
         const bot = new Bot();
@@ -16,39 +14,37 @@ export default class PlayCommand {
         if (msg.member.voiceChannel || guild.voiceChannel != null) {
             guild.voiceChannel = member.voiceChannel;
             if (guild.queue.length > 0 || guild.isPlaying) {
-                this.notPlaying(guild, helper, args, msg,settings, client, bot);
+                this.notPlaying(guild, helper, args, msg, settings, client, bot);
             } else {
                 guild.isPlaying = true;
-                this.isPlaying(helper, args, guild, msg,settings, client, bot);
+                this.isPlaying(helper, args, guild, msg, settings, client, bot);
             }
         } else {
-            bot.delete(msg);
             bot.reply(msg, 4, 5000);
         }
     }
 
-    isPlaying(helper:MusicHelper, args: any, guild:any, msg:any, settings:Settings, client:any, bot:Bot){
+    isPlaying(helper: MusicHelper, args: any, guild: any, msg: any, settings: Settings, client: any, bot: Bot) {
         helper.getID(args, (url: string) => {
-            guild.queue.push(url);
             this.playMusic(url, msg, guild);
             helper.addToQueue(url, guild);
-            this.fetchVideoInfo(url).then((videoInfo: any) => {
-                guild.queueNames.push(videoInfo.title);
-                new MoveMessage(client, msg, "🎵 **" + videoInfo.title + "**");
-            }).catch((error: any) => { console.log("Error: rad 36", error) });
+            this.getInfo(url).then((info: any) => {
+                const title = info.items[0].title;
+                guild.queueNames.push(title);
+                new MoveMessage(client, msg, "🎵 **" + title + "**", guild);
+            }).catch((error: any) => console.log("Error isPlaying-> getInfo(): ", error));
         }, settings);
-        bot.delete(msg);
     }
 
-    notPlaying(guild:any, helper:MusicHelper, args: any, msg:any, settings:Settings, client: any, bot:Bot){
-            helper.getID(args, (url: string) => {
-                helper.addToQueue(url, guild);
-                this.fetchVideoInfo(url).then((videoInfo: any) => {
-                    guild.queueNames.push(videoInfo.title);
-                    new MoveMessage(client, msg, " lägger till **" + videoInfo.title + "** i kön");
-                }).catch((error: any) => { console.log("Error: rad 47", error) });
-            }, settings);
-            bot.delete(msg);
+    notPlaying(guild: any, helper: MusicHelper, args: any, msg: any, settings: Settings, client: any, bot: Bot) {
+        helper.getID(args, (url: string) => {
+            helper.addToQueue(url, guild);
+            this.getInfo(url).then((info: any) => {
+                const title = info.items[0].title;
+                guild.queueNames.push(title);
+                new MoveMessage(client, msg, "lägger till **" + title + "** i kön", guild);
+            }).catch((error: any) => console.log("Error notPlaying-> getInfo(): ", error));
+        }, settings);
     }
 
     playMusic(url: any, message: any, guild: any) {
@@ -57,7 +53,7 @@ export default class PlayCommand {
         guild.voiceChannel.join().then((connect: any) => {
             let audioStream = this.ytdl(settings.yt_generic + url, {
                 filter: "audioonly",
-                volume: 0.02
+                volume: 0.03
             });
             guild.skipRequest = 0;
             guild.skipList = []; //allow users to skip new song
@@ -74,11 +70,10 @@ export default class PlayCommand {
                     guild.isPlaying = false;
                 } else {
                     setTimeout(() => {
-                        guild.queue.shift();
                         this.playMusic(guild.queue[0], message, guild);
-                    }, 900);
+                    }, 600);
                 }
             });
-        });
+        }).catch((error: any) => console.log(`Err playMusic() => url: ${url}\nerror: ${error}`));
     }
 }
