@@ -26,7 +26,7 @@ export default class HelpCommand {
         "\nChannel Settings"+
         divider+
         "\n[BotChannel]: #"+ meta.getBotChannel(guild)+
-        "\n[BotRole]: "+ meta.getRoleName(guild)+
+        "\n[BotRole]: "+ meta.getBotRole(guild)+
         "\n[Prefix]: "+ p +
         ""+divider+
         `\nGeneral: Create a text-channel called [#${meta.getBotChannel(guild)}]. The bot will add all messages there!`+

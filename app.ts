@@ -14,7 +14,7 @@ import Metadata from "./helpers/metadata.helper";
 import Bot from "./bot.component";
 import Prefix from "./commands/prefix.command";
 import Permission from "./helpers/permission.helper";
-import BotRole from "./commands/botrole.command";
+import RoleCommand from "./commands/role.command";
 import BotChannel from "./commands/botchannel.command";
 
 // https://discordapp.com/oauth2/authorize?client_id=550368724851490816&scope=bot&permissions=8
@@ -49,6 +49,7 @@ export default class ApexBot {
                     // TODO: add customization to: botchannel && prefix / guild && custom role.
                     botChannel: settings.bot_channel || null,
                     botRole: settings.bot_role || null,
+                    adminRole: settings.bot_role || null,
                     prefix: settings.prefix || null
                 }
             }
@@ -63,8 +64,7 @@ export default class ApexBot {
             switch (input) {
                 case prefix + "play":
                     new Bot().delete(msg, 5000);
-                    const music = new PlayCommand();
-                    music.musicConfig(member, this.guild, args, this.client, msg, settings);
+                    new PlayCommand().musicConfig(member, this.guild, args, this.client, msg, settings);
                     break;
                 case prefix + "skip":
                     new SkipCommand(msg, this.guild);
@@ -93,27 +93,27 @@ export default class ApexBot {
                     new QueueCommand(this.guild, msg);
                     break;
                 case prefix + "setprefix":
-                    if(new Permission().get(msg, args, this.guild)){ 
-                        new Bot().message(msg,`\`WARNING\`: You have changed the prefix to: \`${args}\``);
-                        new Prefix().set(this.guild, args);
-                        break;
+                    if(new Permission().hasElevatedPermission(msg, args, this.guild)){
+                        new Prefix().set(this.guild, msg, args);
                     }
-                    new Permission().denied(msg, this.guild, this.metadata);
                     break;
-                case prefix + "setrole":
-                    if(new Permission().get(msg, args, this.guild)){ 
-                        new Bot().message(msg,`\`WARNING\`: You have changed the role to: \`${args}\``);
-                        new BotRole().set(this.guild, args);
-                        break;
+                case prefix + "setbotrole":
+                    if(new Permission().hasElevatedPermission(msg, args, this.guild)){
+                        new RoleCommand().setBotRole(this.guild, msg, args);
                     }
-                    new Permission().denied(msg, this.guild, this.metadata);
+                    break;
+                case prefix + "setadminrole": 
+                    if(new Permission().hasAdminRole(msg, arg, this.guild)){
+                        new RoleCommand().setAdminRole(this.guild, msg, args);
+                    }
+                    new Permission().denied(msg, this.guild, new RoleCommand().getBotRole(this.guild));
                     break;
                 case prefix + "setbotchannel":
-                    if(new Permission().get(msg, args, this.guild)){ 
+                    if(new Permission().hasElevatedPermission(msg, args, this.guild)){
                         new Bot().message(msg,`\`WARNING\`: You have changed the botchannel to: \`${args}\``);
                         new BotChannel().set(this.guild, args);
                     }
-                    new Permission().denied(msg, this.guild, this.metadata);
+                    new Permission().denied(msg, this.guild, new RoleCommand().getBotRole(this.guild));
                     break;    
                 default:
                     break;

@@ -6,11 +6,11 @@ export default class ClearCommand {
             msg.delete(); // deleting the command message itself so that it doesnt interfere.
             let findBot: boolean = false;
             msg.member.roles.forEach((role: any) => {
-                role.name.toLowerCase() == metadata.getRoleName(guild).toLowerCase() ? findBot = true : false;
+                role.name.toLowerCase() == metadata.getBotRole(guild).toLowerCase() ? findBot = true : false;
             });
 
             if (!findBot) {
-                msg.channel.send(`You need the \`${metadata.getRoleName(guild)}\` role to use this command.`).then((del: any) => del.delete(5000));
+                msg.channel.send(`You need the \`${metadata.getBotRole(guild)}\` role to use this command.`).then((del: any) => del.delete(5000));
                 return;
             }
             if (isNaN(arg[0])) {

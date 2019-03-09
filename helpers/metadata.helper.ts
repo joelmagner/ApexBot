@@ -1,7 +1,6 @@
 import * as fs from "fs";
-import Settings from "../models/settings.model";
 import Prefix from "../commands/prefix.command";
-import BotRole from "../commands/botrole.command";
+import RoleCommand from "../commands/role.command";
 import BotChannel from "../commands/botchannel.command";
 export default class Metadata {
 
@@ -18,16 +17,22 @@ export default class Metadata {
     public setBotChannel(guild: any, name: string) {
         return new BotChannel().set(guild, name);
     }
-    public getRoleName(guild: any): string {
-        return new BotRole().get(guild);
+    public getBotRole(guild: any): string {
+        return new RoleCommand().getBotRole(guild);
     }
-    public setRoleName(guild: any, role: string) {
-        return new BotRole().set(guild, role);
+    public setBotRole(guild: any, msg: any, role: string) {
+        return new RoleCommand().setBotRole(guild, msg, role);
+    }
+    public getAdminRole(guild: any): string {
+        return new RoleCommand().getAdminRole(guild);
+    }
+    public setAdminRole(guild: any, msg: any, name: string) {
+        return new RoleCommand().setAdminRole(guild, msg, name);
     }
     public getPrefix(guild: any): string {
         return new Prefix().get(guild);
     }
-    public setPrefix(guild: any, prefix: string) {
-        return new Prefix().set(guild, prefix);
+    public setPrefix(guild: any, msg: any, prefix: string) {
+        return new Prefix().set(guild, msg, prefix);
     }
 }

@@ -6,7 +6,7 @@ export default class SkipCommand {
         bot.delete(msg);
         const skip = msg.author.id;
         if(!guild.isPlaying){
-            bot.replyTo(msg, "Bot isnt playing anything... nothing to skip", 5000);
+            bot.replyWith(msg, "Bot isn't playing anything... nothing to skip", 5000);
             return;
         }
         if (guild.skipList.indexOf(skip === -1)) {
@@ -15,10 +15,10 @@ export default class SkipCommand {
             var calc = Math.ceil(((guild.voiceChannel.members.size - 1) / 2)); // -1 för att kompensera för botten
             if (guild.skipRequest >= calc == undefined ? 1 : calc) {
                 this.skipSong(guild);
-                bot.replyTo(msg,"`skipping song...`", 5000);
+                bot.replyWith(msg,"`skipping song...`", 5000);
             } else {
                 let calc = Math.ceil((guild.voiceChannel.members.size - 1) / 2) - guild.skipRequest;
-                bot.replyTo(msg,"you placed your vote. You need **" + calc + "** more people to [`skip`] this song",5000);
+                bot.replyWith(msg,"you placed your vote. You need **" + calc + "** more people to [`skip`] this song",5000);
             }
         } else {
             bot.reply(msg, 2).then((del: any) => del.delete(5000));

@@ -1,6 +1,5 @@
 import Bot from "../bot.component";
 import Metadata from './metadata.helper';
-import BotChannel from "../commands/botchannel.command";
 
 export default class MoveMessage{
     constructor(client: any, msg: any, cmsg: string, guild: any){
@@ -19,7 +18,7 @@ export default class MoveMessage{
                 });
                 let mention: any;
                 msg.member.roles.forEach((role: any) => {
-                    role.name == metadata.getRoleName(guild) ? mention = msg.author.username : mention = msg.author;
+                    role.name == metadata.getBotRole(guild) ? mention = msg.author.username : mention = msg.author;
                 });
                 let match = client.channels.get(botChannel);
                 if (match) { match.send(`${mention} ${cmsg}`); }
