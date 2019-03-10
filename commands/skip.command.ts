@@ -3,7 +3,6 @@ export default class SkipCommand {
 
     constructor(msg: any, guild: any) {
         let bot = new Bot();
-        bot.delete(msg);
         const skip = msg.author.id;
         if(!guild.isPlaying){
             bot.replyWith(msg, "Bot isn't playing anything... nothing to skip", 5000);
@@ -21,7 +20,7 @@ export default class SkipCommand {
                 bot.replyWith(msg,"you placed your vote. You need **" + calc + "** more people to [`skip`] this song",5000);
             }
         } else {
-            bot.reply(msg, 2).then((del: any) => del.delete(5000));
+            bot.reply(msg, 2, 5000);
         }
     }
 

@@ -1,6 +1,5 @@
 export default class QueueCommand {
     constructor(guild: any, msg: any) {
-        // msg.delete();
         var songInfo = "```";
         for (var i = 0; i < guild.queueNames.length; i++) {
             var temp = (i + 1) + ": " + guild.queueNames[i] + (i === 0 ? " 🔊 (Nuvarande låt)" : "") + "\n";

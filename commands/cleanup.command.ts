@@ -1,19 +1,20 @@
 import Metadata from '../helpers/metadata.helper';
+import Bot from '../bot.component';
 export default class CleanupCommand {
     constructor(msg: any, arg: any, guild: any) {
         const metadata = new Metadata();
         async function purge() {
-            msg.delete(); // deleting the command message itself so that it doesnt interfere.
+            // msg.delete(); // deleting the command message itself so that it doesnt interfere.
             let findBot: boolean = false;
             msg.member.roles.forEach((role: any) => {
                 role.name.toLowerCase() == metadata.getBotRole(guild).toLowerCase() ? findBot = true : false;
             });
             if (!findBot) {
-                msg.channel.send(`You need the \`${metadata.getBotRole(guild)}\` role to use this command.`).then((del: any) => del.delete(5000));
+                new Bot().replyWith(msg,`\nYou need the \`${metadata.getBotRole(guild)}\` role to use this command.`,5000);
                 return;
             }
             if (isNaN(arg[0])) {
-                msg.channel.send('\n Usage: §clear <antal>');
+                new Bot().message(msg,`\nUsage: ${metadata.getPrefix(guild)}clearbot <amount>`,5000);
                 return;
             }
             if (msg.channel.type == "text") {

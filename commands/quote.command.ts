@@ -2,8 +2,8 @@ import MoveMessage from "./../helpers/move.helper";
 import { Message } from "discord.js";
 
 export default class QuoteCommand {
-    constructor(client: any, msg: Message, guild: any) {
-        new MoveMessage(client, msg, this.randomQuote(msg), guild);
+    constructor(msg: Message, guild: any) {
+        new MoveMessage(msg, this.randomQuote(msg), guild);
     }
 
     randomQuote(msg: Message) {
@@ -21,7 +21,7 @@ export default class QuoteCommand {
             case 6:
                 return "Haur du planerad å stanna längre än va som e nödvänned?";
             case 7:
-                return "\n||Namn: "+msg.author+"\nYrke: Ålahue||\nHarrmid forrsäkrar jau po hidder ou samvede att ifyllda oppgiftorr e helt riktia ou sanna";
+                return "\n\n||Namn: "+msg.author.username+"\nYrke: Ålahue\nErfarenhet: Twau aur||\nHarrmid forrsäkrar jau po hidder ou samvede att ifyllda oppgiftorr e helt riktia ou sanna";
             case 8:
                 return "Åsse markera me kryss ditt ålahue [||X||]";
             case 9:

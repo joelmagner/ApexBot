@@ -8,41 +8,41 @@ export default class PlayCommand {
     private ytdl: any = require("ytdl-core");
     private getInfo: any = getInfo;
 
-    musicConfig(member: any, guild: any, args: any, client: any, msg: any, settings: Settings) {
+    musicConfig(member: any, guild: any, args: any, msg: any, settings: Settings) {
         const bot = new Bot();
         const helper = new MusicHelper();
         if (msg.member.voiceChannel || guild.voiceChannel != null) {
             guild.voiceChannel = member.voiceChannel;
             if (guild.queue.length > 0 || guild.isPlaying) {
-                this.queueSong(guild, helper, args, msg, settings, client, bot);
+                this.queueSong(guild, helper, args, msg, settings);
             } else {
                 guild.isPlaying = true;
-                this.playSong(helper, args, guild, msg, settings, client, bot);
+                this.playSong(helper, args, guild, msg, settings);
             }
         } else {
             bot.reply(msg, 4, 5000);
         }
     }
 
-    playSong(helper: MusicHelper, args: any, guild: any, msg: any, settings: Settings, client: any, bot: Bot) {
+    playSong(helper: MusicHelper, args: any, guild: any, msg: any, settings: Settings) {
         helper.getID(args, (url: string) => {
             this.musicPlayer(url, msg, guild);
             helper.addToQueue(url, guild);
             this.getInfo(url).then((info: any) => {
                 const title = info.items[0].title;
                 guild.queueNames.push(title);
-                new MoveMessage(client, msg, "🎵 **" + title + "**", guild);
+                new MoveMessage(msg, "🎵 **" + title + "**", guild);
             }).catch((error: any) => console.log("Error isPlaying-> getInfo(): ", error));
         }, settings);
     }
 
-    queueSong(guild: any, helper: MusicHelper, args: any, msg: any, settings: Settings, client: any, bot: Bot) {
+    queueSong(guild: any, helper: MusicHelper, args: any, msg: any, settings: Settings) {
         helper.getID(args, (url: string) => {
             helper.addToQueue(url, guild);
             this.getInfo(url).then((info: any) => {
                 const title = info.items[0].title;
                 guild.queueNames.push(title);
-                new MoveMessage(client, msg, "Adding **" + title + "** to the queue", guild);
+                new MoveMessage(msg, "Adding **" + title + "** to the queue", guild);
             }).catch((error: any) => console.log("Error notPlaying-> getInfo(): ", error));
         }, settings);
     }

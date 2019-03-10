@@ -14,8 +14,8 @@ export default class Metadata {
     public getBotChannel(guild: any): string {
         return new BotChannel().get(guild);
     }
-    public setBotChannel(guild: any, name: string) {
-        return new BotChannel().set(guild, name);
+    public setBotChannel(guild: any, msg: any, name: string) {
+        return new BotChannel().set(guild, msg, name);
     }
     public getBotRole(guild: any): string {
         return new RoleCommand().getBotRole(guild);

@@ -1,6 +1,6 @@
 import Metadata from "./metadata.helper";
 import Bot from "../bot.component";
-import *  as discord from "discord.js";
+import * as discord from "discord.js";
 
 export default class Permission {
 
@@ -36,15 +36,19 @@ export default class Permission {
             return false;
         }
         const metadata = new Metadata();
-        const botRole = metadata.getBotRole(guild);
-        const adminRole = metadata.getAdminRole(guild);
+        const botRole = metadata.getBotRole(guild).toLowerCase();
+        const adminRole = metadata.getAdminRole(guild).toLowerCase();
         let permission: boolean = false;
         msg.member.roles.forEach((role) => {
-            if(role.name.toLowerCase() == (botRole || adminRole)){
+            let roleName = role.name.toLowerCase();
+            if(roleName == botRole || roleName == adminRole){
                 permission = true;
             }
         });
-        new Bot().replyWith(msg, `You do not have sufficient permissions to use this command`, 5000);
+        if(!permission){
+            new Bot().replyWith(msg, `You do not have sufficient permissions to use this command`, 5000);
+            return false;
+        }
         return permission;
     }
 

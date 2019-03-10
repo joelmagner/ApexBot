@@ -1,7 +1,6 @@
 import Bot from '../bot.component';
 export default class LeaveCommand {
     constructor(msg: any, guild: any) {
-        msg.delete();
         guild.queue = [];
         guild.queueNames = [];
         let bot = new Bot();
