@@ -5,26 +5,26 @@ export default class Bot {
         let message = "";
         switch (number) {
             case -1: 
-                message = "Something went wrong. Please try again...";
+                message = ":lion_face: Something went wrong. Please try again...";
             case 0:
-                message = "Sorry, not sure what that command is.";
+                message = ":lion_face: Sorry, not sure what that command is.";
                 break;
             case 1:
-                message = "Ålahue, Skicka bara botmeddelande i botkanalen!";
+                message = ":lion_face: Ålahue, Skicka bara botmeddelande i botkanalen!";
                 break;
             case 2:
-                message = "Skipping song.";
+                message = ":lion_face: Skipping song.";
                 break;
             case 3:
-                message = "You've already voted.";
+                message = ":lion_face: You've already voted.";
                 break;
             case 4:
-                message = "You have to be in a voicechannel.";
+                message = ":lion_face: You have to be in a voicechannel.";
                 break;
             case 5:                         
                 break;
             case 6:
-                message = "Vi höres, haa dee!";
+                message = ":lion_face: Successfully disconnected! :wave:";
             default:
                 break;
         }

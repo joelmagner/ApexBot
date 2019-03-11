@@ -21,7 +21,7 @@ import Menu from "./helpers/menu.helper";
 import Guild from "./helpers/guild.helper";
 
 // https://discordapp.com/oauth2/authorize?client_id=550368724851490816&scope=bot&permissions=8
-export default class ApexBot {
+export default class MufasaBot {
 
     private client: any = new discord.Client();
     private guilds: any = {};
@@ -56,4 +56,4 @@ export default class ApexBot {
         });
     }
 }
-new ApexBot();
+new MufasaBot();

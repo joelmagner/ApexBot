@@ -35,7 +35,7 @@ export default class PlayCommand {
                 const minutes = Math.floor(duration / 60);
                 const seconds = duration - minutes * 60;
                 guild.queueNames.push(title);
-                new MoveMessage(msg, "🎵 ["+minutes+":"+seconds+"] **" + `\`${title}\`` + "**", guild);
+                new MoveMessage(msg, ":lion_face: "+`\`[${minutes}`+":"+`${seconds}]\``+" :fast_forward: **" + `\`${title}\`` + "**", guild);
             }).catch((error: any) => console.log("Error isPlaying-> getInfo(): ", error));
         }, settings);
     }
@@ -45,8 +45,11 @@ export default class PlayCommand {
             helper.addToQueue(url, guild);
             this.getInfo(url).then((info: any) => {
                 const title = info.items[0].title;
+                const duration = info.items[0].duration;
+                const minutes = Math.floor(duration / 60);
+                const seconds = duration - minutes * 60;
                 guild.queueNames.push(title);
-                new MoveMessage(msg, "Added **" + `\`${title}\`` + "** to the queue", guild);
+                new MoveMessage(msg, ":lion_face: Added "+`\`[${minutes}`+":"+`${seconds}]\``+" :fast_forward: **" + `\`${title}\`` + "** to the queue", guild);
             }).catch((error: any) => console.log("Error notPlaying-> getInfo(): ", error));
         }, settings);
     }

@@ -1,6 +1,6 @@
 {
-  "name": "Mufasa Bot",
-  "version": "1.0.5",
+  "name": "mufasabot",
+  "version": "1.0.6",
   "description": "Discord Music & Management Bot By Joel Magnér",
   "main": "app.js",
   "scripts": {

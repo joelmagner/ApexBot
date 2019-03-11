@@ -7,7 +7,7 @@ export default class SettingsCommand {
         const p = meta.getPrefix(guild);
         const bot = new Bot();
         const message = "```markdown"+
-        `\n🤖Apex Bot [v${meta.getAppVersion()}] by ${meta.getAuthor()} 🤖`+
+        `\n🤖Mufasa Bot [v${meta.getAppVersion()}] by ${meta.getAuthor()} 🤖`+
         divider+
         "\nChannel Settings"+
         divider+

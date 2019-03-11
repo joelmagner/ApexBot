@@ -24,6 +24,7 @@ export default class Menu {
         if(input.startsWith(guild.oldPrefix)){new Bot().replyWith(msg, `\`NOTE\`: The prefix has been changed to: \`${prefix}\``,10000);}
         switch (input) {
             case prefix + "play":
+            case prefix + "p":
                 new Bot().delete(msg, 5000);
                 new PlayCommand().musicConfig(member, guild, args, msg, settings);
                 break;
