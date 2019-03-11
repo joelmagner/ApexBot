@@ -21,7 +21,7 @@ export default class QuoteCommand {
             case 6:
                 return "Haur du planerad å stanna längre än va som e nödvänned?";
             case 7:
-                return "\n\n||Namn: "+msg.author.username+"\nYrke: Ålahue\nErfarenhet: Twau aur||\nHarrmid forrsäkrar jau po hidder ou samvede att ifyllda oppgiftorr e helt riktia ou sanna";
+                return "\n\n||Namn: "+msg.author.username+"\nYrke: Ålahue\nErfarenhet: Twau aur||\n\nHarrmid forrsäkrar jau po hidder ou samvede att ifyllda oppgiftorr e helt riktia ou sanna";
             case 8:
                 return "Åsse markera me kryss ditt ålahue [||X||]";
             case 9:

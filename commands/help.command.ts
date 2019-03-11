@@ -7,7 +7,7 @@ export default class HelpCommand {
         const p = meta.getPrefix(guild);
         const bot = new Bot();
         const message = "```markdown"+
-        `\n🤖Apex Bot [v${meta.getAppVersion()}] by ${meta.getAuthor()} 🤖`+
+        `\n🤖Mufasa Bot [v${meta.getAppVersion()}] by ${meta.getAuthor()} 🤖`+
         divider+
         `\nCommands \t\t|\t\tPrefix: ${p}`+
         divider+
@@ -32,7 +32,8 @@ export default class HelpCommand {
         `\nGeneral: Create a text-channel called [#${meta.getBotChannel(guild)}]. The bot will add all messages there!`+
         divider+
         "\n[NEWS]:"+
-        `\n[${meta.getAppVersion()}]: Permission-system. You can now configure a Bot role and an Admin role.`+
+        `\n[${meta.getAppVersion()}]: Detailed information when using play and queue commands.`+
+        `\n[v1.0.5]: Permission-system. You can now configure a Bot role and an Admin role.`+
         `\nYou can now only choose role and channel names that already exist.`+
         `\n[v1.0.4]: Customizable prefix, botrole and botspam-channel`+
         `\n[v1.0.3]: (NEW) bot can leave channel, (FIX) bug with skipping`+
