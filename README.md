@@ -1,5 +1,8 @@
-# Apex Bot
-*A non intrusive Discord bot that cleans up after itself and others*
+# Mufasa Bot
+
+<img src="https://i.imgur.com/9otS8GZ.png" height="200" width="200" />
+
+*A Discord bot that cleans up after users and itself*
 * Apex Bot is now hosted on Google Cloud. Click [here](https://discordapp.com/oauth2/authorize?client_id=550368724851490816&scope=bot&permissions=8) to invite to your server
 # Prefix: §
 
