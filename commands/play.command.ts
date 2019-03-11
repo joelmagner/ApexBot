@@ -3,9 +3,10 @@ import Bot from '../bot.component';
 import MusicHelper from '../helpers/music.helper';
 import MoveMessage from '../helpers/move.helper';
 import Settings from '../models/settings.model';
+import * as ytdl from "ytdl-core";
 import { getInfo } from "ytdl-getinfo";
 export default class PlayCommand {
-    private ytdl: any = require("ytdl-core");
+    private ytdl: any = ytdl;
     private getInfo: any = getInfo;
 
     musicConfig(member: any, guild: any, args: any, msg: any, settings: Settings) {
@@ -30,8 +31,11 @@ export default class PlayCommand {
             helper.addToQueue(url, guild);
             this.getInfo(url).then((info: any) => {
                 const title = info.items[0].title;
+                const duration = info.items[0].duration;
+                const minutes = Math.floor(duration / 60);
+                const seconds = duration - minutes * 60;
                 guild.queueNames.push(title);
-                new MoveMessage(msg, "🎵 **" + title + "**", guild);
+                new MoveMessage(msg, "🎵 ["+minutes+":"+seconds+"] **" + `\`${title}\`` + "**", guild);
             }).catch((error: any) => console.log("Error isPlaying-> getInfo(): ", error));
         }, settings);
     }
@@ -42,7 +46,7 @@ export default class PlayCommand {
             this.getInfo(url).then((info: any) => {
                 const title = info.items[0].title;
                 guild.queueNames.push(title);
-                new MoveMessage(msg, "Adding **" + title + "** to the queue", guild);
+                new MoveMessage(msg, "Added **" + `\`${title}\`` + "** to the queue", guild);
             }).catch((error: any) => console.log("Error notPlaying-> getInfo(): ", error));
         }, settings);
     }

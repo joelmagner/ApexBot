@@ -1,9 +1,10 @@
 {
-  "name": "apexbot",
+  "name": "Mufasa Bot",
   "version": "1.0.5",
-  "description": "Discord Music Bot By Joel Magnér",
+  "description": "Discord Music & Management Bot By Joel Magnér",
   "main": "app.js",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
     "start": "node app.js",
     "deploy": "gcloud app deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,7 +25,6 @@
     "ytdl-getinfo": "^1.1.0"
   },
   "devDependencies": {
-    "typescript": "^3.3.3333",
-    "ytdl-getinfo": "^1.1.0"
+    "typescript": "^3.3.3333"
   }
 }
