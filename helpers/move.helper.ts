@@ -16,7 +16,7 @@ export default class MoveMessage {
         });
         let mention: any;
         msg.member.roles.forEach((role: any) => {
-            role.name == metadata.getBotRole(guild) ? mention = msg.author.username : mention = msg.author;
+            role.name.toLowerCase() == metadata.getBotRole(guild).toLowerCase() ? mention = msg.author.username : mention = msg.author;
         });
 
         let match = msg.guild.channels.get(botChannel);
