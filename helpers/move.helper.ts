@@ -2,7 +2,7 @@ import Bot from "../bot.component";
 import Metadata from './metadata.helper';
 import * as discord from 'discord.js';
 export default class MoveMessage {
-    constructor(msg: any, cmsg: string, guild: discord.Guild) {
+    constructor(msg: any, cmsg: string | string[], guild: discord.Guild) {
         let metadata = new Metadata();
         if (msg.channel.name.toLowerCase() != new Metadata().getBotChannel(guild).toLowerCase()) {
             let bot = new Bot();
@@ -20,7 +20,10 @@ export default class MoveMessage {
         });
 
         let match = msg.guild.channels.get(botChannel);
-        if (match) { match.send(`${mention} ${cmsg}`); }
+        const embedMsg = new discord.RichEmbed()
+            .setDescription(`${mention} ${cmsg}`)
+            .setColor(60927);
+        if (match) { match.send(embedMsg); }
     }
 
 }

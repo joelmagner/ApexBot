@@ -9,6 +9,10 @@ export default class PlayCommand {
     private ytdl: any = ytdl;
     private getInfo: any = getInfo;
 
+    n(n: number) {
+        return n.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
+    }
+
     musicConfig(member: any, guild: any, args: any, msg: any, settings: Settings) {
         const bot = new Bot();
         const helper = new MusicHelper();
@@ -35,7 +39,7 @@ export default class PlayCommand {
                 const minutes = Math.floor(duration / 60);
                 const seconds = duration - minutes * 60;
                 guild.queueNames.push(title);
-                new MoveMessage(msg, ":lion_face: "+`\`[${minutes}`+":"+`${seconds}]\``+" :fast_forward: **" + `\`${title}\`` + "**", guild);
+                new MoveMessage(msg, ":lion_face: "+`\`[${this.n(minutes)}`+":"+`${this.n(seconds)}]\``+" :fast_forward: **" + `\`${title}\`` + "**", guild);
             }).catch((error: any) => console.log("Error isPlaying-> getInfo(): ", error));
         }, settings);
     }
@@ -49,7 +53,7 @@ export default class PlayCommand {
                 const minutes = Math.floor(duration / 60);
                 const seconds = duration - minutes * 60;
                 guild.queueNames.push(title);
-                new MoveMessage(msg, ":lion_face: Added "+`\`[${minutes}`+":"+`${seconds}]\``+" :fast_forward: **" + `\`${title}\`` + "** to the queue", guild);
+                new MoveMessage(msg, ":lion_face: Added "+`\`[${this.n(minutes)}`+":"+`${this.n(seconds)}]\``+" :fast_forward: **" + `\`${title}\`` + "** to the queue", guild);
             }).catch((error: any) => console.log("Error notPlaying-> getInfo(): ", error));
         }, settings);
     }

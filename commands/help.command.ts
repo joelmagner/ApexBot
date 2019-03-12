@@ -1,44 +1,41 @@
 import Bot from '../bot.component';
 import Metadata from '../helpers/metadata.helper';
+import * as discord from 'discord.js';
 export default class HelpCommand {
-    constructor(msg: any, guild: any) {
-        const divider: string = "\n===================================";
+    constructor(msg: discord.Message, guild: any) {
         const meta = new Metadata();
         const p = meta.getPrefix(guild);
         const bot = new Bot();
-        const message = "```markdown"+
-        `\n🤖Mufasa Bot [v${meta.getAppVersion()}] by ${meta.getAuthor()} 🤖`+
-        divider+
-        `\nCommands \t\t|\t\tPrefix: ${p}`+
-        divider+
-        `\n[📻 ${p}play](${p}play never gonna give you up / ${p}play youtube-link)`+
-        `\n[❌ ${p}skip](skip song)`+
-        `\n[📖 ${p}quote](lär dig skånska)`+
-        `\n[📇️ ${p}queue](${p}queue)`+
-        `\n[🏃‍ ${p}leave](BOT leaves voicechannel)`+
-        `\n[🗑️ ${p}clear](${p}clear <amount>)`+
-        `\n[🗑️ ${p}clearbot](${p}clearbot <amount> botmessages)`+
-        `\n[👤️ ${p}setprefix](${p}setprefix <prefix>)`+
-        `\n[👤 ${p}setbotrole](${p}setbotrole <name> of permission-role)`+
-        `\n[👤 ${p}setbotchannel](${p}setbotchannel <name> of botchannel)`+
+        let client: any;
+        msg.guild.members.forEach((bot:any) => {
+            if(bot.user.bot && bot.user.username == "Mufasa"){
+                client = bot;
+            }
+        });
 
-        divider+
-        "\nChannel Settings"+
-        divider+
-        "\n[BotChannel]: #"+ meta.getBotChannel(guild)+
-        "\n[BotRole]: "+ meta.getBotRole(guild)+
-        "\n[Prefix]: "+ p +
-        ""+divider+
-        `\nGeneral: Create a text-channel called [#${meta.getBotChannel(guild)}]. The bot will add all messages there!`+
-        divider+
-        "\n[NEWS]:"+
-        `\n[${meta.getAppVersion()}]: Detailed information when using play and queue commands.`+
-        `\n[v1.0.5]: Permission-system. You can now configure a Bot role and an Admin role.`+
-        `\nYou can now only choose role and channel names that already exist.`+
-        `\n[v1.0.4]: Customizable prefix, botrole and botspam-channel`+
-        `\n[v1.0.3]: (NEW) bot can leave channel, (FIX) bug with skipping`+
-        "\n\n[This Message will erase itself in 60 seconds]"+
-        "\n```";
-        bot.message(msg, message, 60000);
+        let helpMessage = new discord.RichEmbed()
+        .setAuthor("Mufasa", client.user.avatarURL)
+        .setColor(16295993)
+        .setDescription(`[Mufasa **v${meta.getAppVersion()}**](https://www.github.com/joelmagner/mufasabot) created by ${meta.getAuthor()}`)
+        .setTimestamp()
+        .setFooter("Mufasa BOT", client.user.avatarURL)
+        .addField(`**Commands**`,
+        `:notes: ${p}play • play song **alias: ${p}p**`
+        +`\n:negative_squared_cross_mark: ${p}skip • skip song`
+        +`\n:books: ${p}quote • writes quote`
+        +`\n🏃‍ ${p}leave • BOT leaves voicechannel`
+        +`\n:put_litter_in_its_place: ${p}clear • \`*\`clears messages **usage: ${p}clear <amount>**`
+        +`\n:put_litter_in_its_place: ${p}clearbot • \`*\`clears bot-messages **usage: ${p}clearbot <amount>**`
+        +`\n:bust_in_silhouette: ${p}setprefix • \`**\` **usage: ${p}setprefix <prefix>**`
+        +`\n:bust_in_silhouette: ${p}setbotchannel • \`**\` **usage: ${p}setbotchannel <name>**`
+        +`\n:bust_in_silhouette: ${p}setbotrole • \`**\` **usage: ${p}setbotrole <name>**`
+        +`\n:bust_in_silhouette: ${p}setadminrole • \`**\` **usage: ${p}setadminrole <name>**`, false)
+        .addField(`**General Information**`,`:lion_face:`, false)
+        .addField(`Organising`,`Create a text-channel called \`${meta.getBotChannel(guild)}\`. All messages will be stored there.`, false)
+        .addField(`Permissions`,`Commands with \`*\` require \`botrole\`.\nCommands with \`**\` require \`adminrole\`.`, false)
+        .addBlankField(false)
+        .addField(`**Current Server Settings**`,`See your active settings: \`${p}settings\``, false)
+
+        bot.message(msg, helpMessage, 60000);
     }
 }

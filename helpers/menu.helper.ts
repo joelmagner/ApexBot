@@ -38,11 +38,15 @@ export default class Menu {
                 break;
             case prefix + "clear":
                 new Bot().delete(msg, 5000);
-                new ClearCommand(msg, arg, guild);
+                if(new Permission().hasElevatedPermission(msg, args, guild)){
+                    new ClearCommand(msg, arg, guild);
+                }
                 break;
             case prefix + "clearbot":
                 new Bot().delete(msg, 5000);
-                new CleanupCommand(msg, arg, guild);
+                if(new Permission().hasElevatedPermission(msg, args, guild)){
+                    new CleanupCommand(msg, arg, guild);
+                }
                 break;
             case prefix + "quote":
             case prefix + "citat":
@@ -63,12 +67,12 @@ export default class Menu {
                 new QueueCommand(guild, msg);
                 break;
             case prefix + "setprefix":
-                if(new Permission().hasElevatedPermission(msg, args, guild)){
+                if(new Permission().hasAdminRole(msg, args, guild)){
                     new Prefix().set(guild, msg, args);
                 }
                 break;
             case prefix + "setbotrole":
-                if(new Permission().hasElevatedPermission(msg, args, guild)){
+                if(new Permission().hasAdminRole(msg, args, guild)){
                     new RoleCommand().setBotRole(guild, msg, args);
                 }
                 break;

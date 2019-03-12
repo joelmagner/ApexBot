@@ -5,7 +5,8 @@ export default class Guild {
     constructor(guilds: any, msg: discord.Message, settings: Settings) {
         return guilds[msg.guild.id] = {
             queue: [],
-            queueNames: [],
+            queueNames: [{}],
+            songDuration: null,
             isPlaying: false,
             dispatcher: null,
             voiceChannel: null,

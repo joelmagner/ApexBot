@@ -31,11 +31,11 @@ export default class Bot {
         return deleteTime ? msg.reply(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error reply(): ", ex)) : msg.reply(message).catch((err:any) => console.log("err reply:", err));
     }
     
-    public replyWith(msg: discord.Message, message: string, deleteTime?: number){
+    public replyWith(msg: discord.Message, message: any, deleteTime?: number){
         return deleteTime ? msg.reply(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error replyTo(): ", ex)) : msg.reply(message).catch((err:any) => console.log("err reply:", err));
     }
 
-    public message(msg: discord.Message, message: string, deleteTime?: number){
+    public message(msg: discord.Message, message: any, deleteTime?: number){
         return deleteTime ? msg.channel.send(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error message(): ", ex)) : msg.reply(message).catch((err:any) => console.log("err reply:", err));
     }
 
