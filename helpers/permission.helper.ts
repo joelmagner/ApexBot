@@ -14,7 +14,7 @@ export default class Permission {
             });
             return hasRole;
         } else {
-            new Bot().replyWith(msg, `\`FAILED\`: You do not have the role: \`${metadata.getBotRole(guild)}\``);
+            new Bot().replyWith(msg, `\`FAILED\`: You do not have the role: \`${metadata.getBotRole(guild)}\``, 5000);
             return false;
         }
     }
@@ -27,7 +27,7 @@ export default class Permission {
             });
             return adminRole;
         } else {
-            new Bot().replyWith(msg, `\`FAILED\`: You do not have the role: \`${metadata.getAdminRole(guild)}\``);
+            new Bot().replyWith(msg, `\`FAILED\`: You do not have the role: \`${metadata.getAdminRole(guild)}\``, 5000);
             return false;
         }
     }

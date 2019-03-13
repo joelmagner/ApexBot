@@ -8,7 +8,7 @@ export default class BotChannel {
 
     set(guild: any, msg: discord.Message, name: string) {
         if(this.validChannel(msg, name)){
-            new Bot().replyWith(msg, `\`WARNING\`: You have changed the botchannel to: \`${name}\``);
+            new Bot().replyWith(msg, `\`WARNING\`: You have changed the botchannel to: \`${name}\``, 5000);
             return guild.botChannel = name;
         } else {
             new Bot().replyWith(msg, `\`FAILED\`: This is not an exisiting channel. You must create the channel \`${name}\` first.`, 5000);

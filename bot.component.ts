@@ -1,7 +1,8 @@
 import * as discord from "discord.js";
 import Metadata from "./helpers/metadata.helper";
 export default class Bot {
-    public reply(msg: any, number:number, deleteTime?:number) {
+    
+    public reply(msg: any, number:number, deleteTime:number) {
         let message = "";
         switch (number) {
             case -1: 
@@ -28,18 +29,35 @@ export default class Bot {
             default:
                 break;
         }
-        return deleteTime ? msg.reply(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error reply(): ", ex)) : msg.reply(message).catch((err:any) => console.log("err reply:", err));
+        return msg.reply(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error reply(): ", ex));
     }
     
-    public replyWith(msg: discord.Message, message: any, deleteTime?: number){
-        return deleteTime ? msg.reply(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error replyTo(): ", ex)) : msg.reply(message).catch((err:any) => console.log("err reply:", err));
+    public async replyWith(msg: any, message: any, deleteTime: number){
+        try {
+            const x = await msg.reply(message);
+            return x.delete(deleteTime);
+        }
+        catch (ex) {
+            return console.log("Error replyTo(): ", ex);
+        }
     }
 
-    public message(msg: discord.Message, message: any, deleteTime?: number){
-        return deleteTime ? msg.channel.send(message).then((x: any) => x.delete(deleteTime)).catch((ex:any) => console.log("Error message(): ", ex)) : msg.reply(message).catch((err:any) => console.log("err reply:", err));
+    public async message(msg: any, message: any, deleteTime: number){
+        try {
+            const x = await msg.channel.send(message);
+            return x.delete(deleteTime);
+        }
+        catch (ex) {
+            return console.log("Error message(): ", ex);
+        }
     }
 
-    public delete(msg: discord.Message, number?: number) {
-        return number ? msg.delete(number).catch(ex => console.log("Error delete(): ", ex)) : msg.delete();
+    public async delete(msg: any, number: number) {
+        try {
+            return msg.delete(number);
+        }
+        catch (ex) {
+            return console.log("Error delete(): ", ex);
+        }
     }
 }

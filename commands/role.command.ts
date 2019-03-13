@@ -11,7 +11,7 @@ export default class RoleCommand {
     }
     setBotRole(guild: any, msg: discord.Message, name: string) {
         if(this.validRole(msg, name)){
-            new Bot().replyWith(msg, `\`WARNING\`: You have changed the bot role to: \`${name}\``);
+            new Bot().replyWith(msg, `\`WARNING\`: You have changed the bot role to: \`${name}\``, 5000);
             return guild.botRole = name;
         } else {
             new Bot().replyWith(msg, `\`FAILED\`: This is not an exisiting role. You must create the \`${name}\` role first.`, 5000);
@@ -19,7 +19,7 @@ export default class RoleCommand {
     }
     setAdminRole(guild: any, msg: any, name: any) {
         if(this.validRole(msg, name)){
-            new Bot().replyWith(msg, `\`WARNING\`: You have changed the admin role to: \`${name}\``);
+            new Bot().replyWith(msg, `\`WARNING\`: You have changed the admin role to: \`${name}\``, 5000);
             return guild.adminRole = name;
         } else {
             new Bot().replyWith(msg, `\`FAILED\`: This is not an exisiting role. You must create the \`${name}\` role first.`, 5000);
