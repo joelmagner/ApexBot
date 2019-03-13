@@ -3,10 +3,9 @@ import Bot from '../bot.component';
 import MusicHelper from '../helpers/music.helper';
 import MoveMessage from '../helpers/move.helper';
 import Settings from '../models/settings.model';
-import * as ytdl from "ytdl-core";
 import { getInfo } from "ytdl-getinfo";
 export default class PlayCommand {
-    private ytdl: any = ytdl;
+    private ytdl: any = require("ytdl-core");
     private getInfo: any = getInfo;
 
     n(n: number) {
@@ -39,7 +38,7 @@ export default class PlayCommand {
                 const minutes = Math.floor(duration / 60);
                 const seconds = duration - minutes * 60;
                 guild.queueNames.push(title);
-                new MoveMessage(msg, ":lion_face: "+`\`[${this.n(minutes)}`+":"+`${this.n(seconds)}]\``+" :fast_forward: **" + `\`${title}\`` + "**", guild);
+                new MoveMessage(msg, `:lion_face: \`[${this.n(minutes)}:${this.n(seconds)}]\`:fast_forward: **\`${title}\`**`, guild);
             }).catch((error: any) => console.log("Error isPlaying-> getInfo(): ", error));
         }, settings);
     }
@@ -53,7 +52,7 @@ export default class PlayCommand {
                 const minutes = Math.floor(duration / 60);
                 const seconds = duration - minutes * 60;
                 guild.queueNames.push(title);
-                new MoveMessage(msg, ":lion_face: Added "+`\`[${this.n(minutes)}`+":"+`${this.n(seconds)}]\``+" :fast_forward: **" + `\`${title}\`` + "** to the queue", guild);
+                new MoveMessage(msg, `:lion_face: Added \`[${this.n(minutes)}:${this.n(seconds)}]\` :fast_forward: **\`${title}\`** to the queue`, guild);
             }).catch((error: any) => console.log("Error notPlaying-> getInfo(): ", error));
         }, settings);
     }

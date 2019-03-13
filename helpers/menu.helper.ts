@@ -25,7 +25,6 @@ export default class Menu {
         switch (input) {
             case prefix + "play":
             case prefix + "p":
-                new Bot().delete(msg, 5000);
                 new PlayCommand().musicConfig(member, guild, args, msg, settings);
                 break;
             case prefix + "skip":
