@@ -49,3 +49,7 @@
 # Run
 
 > `node app.js`
+
+---
+
+<img src="https://i.imgur.com/Q4QzSEb.png" />
